@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: service-client
+
+
+server:
+  port: 8092
+#  servlet:
+#    context-path: /service_client
+
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1000/eureka/
+    healthcheck: # 开启健康检查（需要spring-boot-starter-actuator依赖）只应该在application.yml中设置。
+      #如果设置在bootstrap.yml中将会导致一些不良的副作用，例如在Eureka中注册的应用名称是UNKNOWN等
+      enabled: false
+    registry-fetch-interval-seconds: 10 # 表示eureka client间隔多久去拉取服务注册信息，默认为30秒
+  instance:
+    lease-expiration-duration-in-seconds: 30 # eureka至上一次收到心跳后,等待下次心跳的超时时间,超过此时间移除该服务（默认90秒）
+    lease-renewal-interval-in-seconds: 10 # 心跳发送时间间隔 默认30秒
